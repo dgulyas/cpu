@@ -38,7 +38,7 @@ negate x y
 * Negates x (multiplies by -1) -> y
 
 
- pt x y
+pt x y
 * copies the value in x into y
 * Pass Through
 

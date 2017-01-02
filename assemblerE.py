@@ -32,7 +32,7 @@ def DoTheThing():
 	program = Program()
 	
 	for line in file:
-		tokens = line.split(' ')
+		tokens = line.replace('\t', ' ').split(' ')
 		inst = Inst()
 		
 		if tokens[0] == 'l': # l <literal> <destReg>

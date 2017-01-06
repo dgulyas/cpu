@@ -1,24 +1,17 @@
 ﻿==Registers==
 Represented by x, y, z, w.
 Valid values 0-7
-7 is the program counter
-
-==Literals==
-Represented by <Literal>
-An 8 bit number
+reg7 is the program counter
+reg6 is the literal value when read from and the tty when written to.
 
 ==Booleans==
 False: 0
 True: != 0
 
-
 ==Operations==
 
 lk x
 * loads the next keyboard value into x
-
-ll <Literal> x
-* loads the literal value into x
 
 add x y z
 * x + y -> z
@@ -53,7 +46,7 @@ lt x y z
 * if x < y then 1 -> z else 0 -> z
 
 ==Jump Instructions==
-If the function is true, ALU outputs the new value, else ALU outputs the current Program Counter value + 1
+If the function is true, ALU outputs the new value, else ALU outputs the current Program Counter value
 
 jgt w x y z
 * if w > x then y -> z else program counter + 1 -> z
@@ -65,7 +58,11 @@ je w x y z
 jlt w x y z
 * if w < x then y -> z else program counter + 1 -> z
 
+==Optional Literal==
+All of these commands can also optionally set the literal value by appending a base 10 8 bit number onto the end of the command.
+The assembler will check if there's an extra token on the end of the line and if so interpret it as a literal.
+Ex. add 0 6 1 87    --> reg0 + 87 -> reg1
+
 ==Comments==
-Since each command has a specific number of tokens that it looks at, comments can be placed at the end of each line, and will be ignored.
-eg:
-invert 1 2 <this is a comment>
+Since commands can now have an optional literal value on the end of the line, comments must begin with #.
+Before a line is processed, if a # is present, it will be removed, along with everything after it.

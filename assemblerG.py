@@ -34,6 +34,7 @@ def DoTheThing():
 	program = Program()
 	
 	for line in file:
+		line = removeComments(line)
 		tokens = line.replace('\t', ' ').split(' ')
 		inst = Inst()
 		
@@ -46,26 +47,32 @@ def DoTheThing():
 			inst.destReg = tokens[2]
 			inst.literal = tokens[1]
 			
-		if tokens[0] in arityOne: # <inst> <opA> <destReg>
+		if tokens[0] in arityOne: # <inst> <opA> <destReg> <optional literal>
 			inst.aluOrLiteral = alu
 			inst.opAReg = tokens[1]
 			inst.destReg = tokens[2]
 			inst.aluFunct = aluOps[tokens[0]]
+			if(len(tokens) == 4):
+				inst.literal = tokens[3]
 
-		if tokens[0] in arityTwo: # <inst> <opA> <opB> <destReg>
+		if tokens[0] in arityTwo: # <inst> <opA> <opB> <destReg> <optional literal>
 			inst.aluOrLiteral = alu
 			inst.opAReg = tokens[1]
 			inst.opBReg = tokens[2]
 			inst.destReg = tokens[3]
 			inst.aluFunct = aluOps[tokens[0]]
+			if(len(tokens) == 5):
+				inst.literal = tokens[4]
 			
-		if tokens[0] in jumpInsts: # <inst> <opA> <opB> <opC> <destReg>
+		if tokens[0] in jumpInsts: # <inst> <opA> <opB> <opC> <destReg> <optional literal>
 			inst.aluOrLiteral = alu
 			inst.opAReg = tokens[1]
 			inst.opBReg = tokens[2]
 			inst.opCReg = tokens[3]
 			inst.destReg = tokens[4]
 			inst.aluFunct = aluOps[tokens[0]]
+			if(len(tokens) == 6):
+				inst.literal = tokens[5]
 			
 		program.addLine(inst.getLine())
 		
@@ -96,6 +103,12 @@ class Inst:
 def intToPaddedBinString(intNum, width):
 	return bin(int(intNum))[2:].zfill(width)
 
+def removeComments(line):
+	try:
+		poundIndex = line.index('#')
+		return line[:poundIndex]
+	except:
+		return line
 		
 class Program:
 	def __init__(self):

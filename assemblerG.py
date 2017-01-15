@@ -1,10 +1,9 @@
 import sys
 
 # is the number being stored in the register from the ALU or
-# a literal?
+# the keyboard? These values come from the MUX above the ROM
 keyboard = 3
 alu = 1
-literal = 0
 
 # These map the instruction names to the ALU operation number
 aluOps = { # refer to language spec for definitions
@@ -24,7 +23,6 @@ aluOps = { # refer to language spec for definitions
 }
 
 # instructions that have the same arity are treated the same way
-arityZero = {'ll', 'lk' }
 arityOne = {'negate', 'pt', 'invert'}
 arityTwo = {'add', 'minus', 'and', 'or', 'gt', 'e', 'lt'}
 jumpInsts = {'jgt', 'je', 'jlt'}
@@ -35,17 +33,12 @@ def DoTheThing():
 	
 	for line in file:
 		line = removeComments(line)
-		tokens = line.replace('\t', ' ').split(' ')
+		tokens = line.split()
 		inst = Inst()
 		
 		if tokens[0] == 'lk': # lk <destReg>
 			inst.aluOrLiteral = keyboard
 			inst.destReg = tokens[1]
-		
-		if tokens[0] == 'll': # l <literal> <destReg>
-			inst.aluOrLiteral = literal
-			inst.destReg = tokens[2]
-			inst.literal = tokens[1]
 			
 		if tokens[0] in arityOne: # <inst> <opA> <destReg> <optional literal>
 			inst.aluOrLiteral = alu

@@ -1,7 +1,7 @@
 import sys
 
 # is the number being stored in the register from the ALU or
-# a literal?
+# a literal? These values come from the MUX above the ROM
 keyboard = 3
 alu = 1
 literal = 0

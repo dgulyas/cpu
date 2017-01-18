@@ -1,0 +1,82 @@
+﻿==Registers==
+Represented by x, y, z, w.
+Valid values 0-15
+reg0-reg11 are normal registers
+reg12 is normal and also outputs to the RAMs address port.
+reg13 is the RAMs data ports, both load and store.
+reg14 is the literal value when read from and the tty when written to.
+reg15 is the program counter. 
+
+==Booleans==
+False: 0
+True: != 0
+
+==Operations==
+lk x
+* loads the next keyboard value into x
+
+add x y z
+* x + y -> z
+
+minus x y z
+* x - y -> z
+
+negate x y
+* Negates x (multiplies by -1) -> y
+
+pt x y
+* copies the value in x into y
+* Pass Through
+
+and x y z
+* x (boolean and) y -> z
+
+or x y z
+* x (boolean or) y -> z
+
+invert x y
+* if x == 0 then 1 -> y
+* if x != 0 then 0 -> y
+
+gt x y z
+* if x > y then 1 -> z else 0 -> z
+
+e x y z
+* if x == y then 1 -> z else 0 -> z
+
+lt x y z
+* if x < y then 1 -> z else 0 -> z
+
+==Jump Instructions==
+If the function is true, ALU outputs the new value, else ALU outputs the current Program Counter value + 1
+
+jgt w x y z
+* if w > x then y -> z else program counter + 1 -> z
+* jgt <arg1> <arg2> <new value> <destination register>
+
+je w x y z
+* if w == x then y -> z else program counter + 1 -> z
+
+jlt w x y z
+* if w < x then y -> z else program counter + 1 -> z
+
+==Optional Literal==
+All of these commands can also optionally set the literal value by appending a base 10 8 bit number onto the end of the command.
+The assembler will check if there's an extra token on the end of the line and if so interpret it as a literal.
+Ex. add 0 6 1 87    --> reg0 + 87 -> reg1
+
+==Comments==
+Since commands can now have an optional literal value on the end of the line, comments must begin with #.
+Before a line is processed, if a # is present, it will be removed, along with everything after it.
+
+==Example Commands== (coming soon)
+Loading Ram:
+
+Reading from Ram:
+
+Writing to the screen:
+
+Read single digit from keyboard and convert from acsii to number:
+
+
+

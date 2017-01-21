@@ -1,11 +1,11 @@
 ﻿==Registers==
 Represented by x, y, z, w.
-Valid values 0-15
-reg0-reg11 are normal registers
-reg12 is normal and also outputs to the RAMs address port.
-reg13 is the RAMs data ports, both load and store.
-reg14 is the literal value when read from and the tty when written to.
-reg15 is the program counter. 
+Valid values: regx where x is 0-15 or Ram or RamAd or Lv or Tty or Pc
+reg0-reg11: are normal registers
+reg12/regRamAd: is normal and also outputs to the RAMs address port. 
+reg13/regRam: is the RAMs data ports, both load and store. 
+reg14/regLv/regTty: is the literal value when read from and the tty when written to.
+reg15/regPc: is the program counter. 
 
 ==Booleans==
 False: 0
@@ -71,6 +71,8 @@ Before a line is processed, if a # is present, it will be removed, along with ev
 
 ==Example Commands== (coming soon)
 Loading Ram:
+pt regLv regRamAd 24 #load 24 into the ram's address reg
+pt regLv regRam 10 #store 10 into registry location 24
 
 Reading from Ram:
 
@@ -78,5 +80,5 @@ Writing to the screen:
 
 Read single digit from keyboard and convert from acsii to number:
 
-
+No-Op (command that does nothing):
 

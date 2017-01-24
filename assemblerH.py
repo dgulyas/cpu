@@ -2,8 +2,8 @@ import sys
 
 # is the number being stored in the register from the ALU or
 # the keyboard? These values come from the MUX above the ROM
-keyboard = 3
-alu = 1
+keyboard = 1
+alu = 0
 
 # These map the instruction names to the ALU operation number
 aluOps = { # refer to language spec for definitions
@@ -22,6 +22,31 @@ aluOps = { # refer to language spec for definitions
 	'jlt': 12
 }
 
+#These map register names to the register's number
+regNums = { # refer to language spec for definitions
+	'$0': 0,
+	'$1': 1,
+	'$2': 2,
+	'$3': 3,
+	'$4': 4,
+	'$5': 5,
+	'$6': 6,
+	'$7': 7,
+	'$8': 8,
+	'$9': 9,
+	'$10': 10,
+	'$11': 11,
+	'$12': 12,
+	'$ramAdd': 12,
+	'$13': 13,
+	'$ram': 13,
+	'$14': 14
+	'$tty': 14,
+	'$lit': 14,
+	'$15': 15,
+	'$pc': 15
+}
+
 # instructions that have the same arity are treated the same way
 arityOne = {'negate', 'pt', 'invert'}
 arityTwo = {'add', 'minus', 'and', 'or', 'gt', 'e', 'lt'}
@@ -38,34 +63,40 @@ def DoTheThing():
 		
 		if tokens[0] == 'lk': # lk <destReg>
 			inst.aluOrLiteral = keyboard
-			inst.destReg = tokens[1]
+			inst.destReg = regNums[tokens[1]]
+			continue
 			
 		if tokens[0] in arityOne: # <inst> <opA> <destReg> <optional literal>
 			inst.aluOrLiteral = alu
-			inst.opAReg = tokens[1]
-			inst.destReg = tokens[2]
+			inst.opAReg = regNums[tokens[1]]
+			inst.destReg = regNums[tokens[2]]
 			inst.aluFunct = aluOps[tokens[0]]
 			if(len(tokens) == 4):
 				inst.literal = tokens[3]
+			continue				
 
 		if tokens[0] in arityTwo: # <inst> <opA> <opB> <destReg> <optional literal>
 			inst.aluOrLiteral = alu
-			inst.opAReg = tokens[1]
-			inst.opBReg = tokens[2]
-			inst.destReg = tokens[3]
+			inst.opAReg = regNums[tokens[1]]
+			inst.opBReg = regNums[tokens[2]]
+			inst.destReg = regNums[tokens[3]]
 			inst.aluFunct = aluOps[tokens[0]]
 			if(len(tokens) == 5):
 				inst.literal = tokens[4]
+			continue
 			
 		if tokens[0] in jumpInsts: # <inst> <opA> <opB> <opC> <destReg> <optional literal>
 			inst.aluOrLiteral = alu
-			inst.opAReg = tokens[1]
-			inst.opBReg = tokens[2]
-			inst.opCReg = tokens[3]
-			inst.destReg = tokens[4]
+			inst.opAReg = regNums[tokens[1]]
+			inst.opBReg = regNums[tokens[2]]
+			inst.opCReg = regNums[tokens[3]]
+			inst.destReg = regNums[tokens[4]]
 			inst.aluFunct = aluOps[tokens[0]]
 			if(len(tokens) == 6):
 				inst.literal = tokens[5]
+			continue
+			
+		print("No matching command found: " + line)
 			
 		program.addLine(inst.getLine())
 		
@@ -82,13 +113,13 @@ class Inst:
 		self.aluFunct = 0
 		
 	def getLine(self):
-		bin = 	intToPaddedBinString(self.aluFunct, 4) + \
-				intToPaddedBinString(self.opCReg, 3) + \
-				intToPaddedBinString(self.opBReg, 3) + \
-				intToPaddedBinString(self.opAReg, 3) + \
-				intToPaddedBinString(self.literal, 8) + \
-				intToPaddedBinString(self.destReg, 3) + \
-				intToPaddedBinString(self.aluOrLiteral, 2)
+		bin = 	intToPaddedBinString(self.aluOrKeyboard, 1) + \
+				intToPaddedBinString(self.aluFunct, 4) + \
+				intToPaddedBinString(self.opAReg, 4) + \
+				intToPaddedBinString(self.opBReg, 4) + \
+				intToPaddedBinString(self.opCReg, 4) + \
+				intToPaddedBinString(self.destReg, 4) + \
+				intToPaddedBinString(self.literal, 8)
 		
 		return hex(int(bin, 2))[2:]
 		

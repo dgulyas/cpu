@@ -40,7 +40,7 @@ regNums = { # refer to language spec for definitions
 	'$ramAdd': 12,
 	'$13': 13,
 	'$ram': 13,
-	'$14': 14
+	'$14': 14,
 	'$tty': 14,
 	'$lit': 14,
 	'$15': 15,
@@ -62,31 +62,28 @@ def DoTheThing():
 		inst = Inst()
 		
 		if tokens[0] == 'lk': # lk <destReg>
-			inst.aluOrLiteral = keyboard
+			inst.aluOrKeyboard = keyboard
 			inst.destReg = regNums[tokens[1]]
-			continue
 			
-		if tokens[0] in arityOne: # <inst> <opA> <destReg> <optional literal>
-			inst.aluOrLiteral = alu
+		elif tokens[0] in arityOne: # <inst> <opA> <destReg> <optional literal>
+			inst.aluOrKeyboard = alu
 			inst.opAReg = regNums[tokens[1]]
 			inst.destReg = regNums[tokens[2]]
 			inst.aluFunct = aluOps[tokens[0]]
 			if(len(tokens) == 4):
 				inst.literal = tokens[3]
-			continue				
 
-		if tokens[0] in arityTwo: # <inst> <opA> <opB> <destReg> <optional literal>
-			inst.aluOrLiteral = alu
+		elif tokens[0] in arityTwo: # <inst> <opA> <opB> <destReg> <optional literal>
+			inst.aluOrKeyboard = alu
 			inst.opAReg = regNums[tokens[1]]
 			inst.opBReg = regNums[tokens[2]]
 			inst.destReg = regNums[tokens[3]]
 			inst.aluFunct = aluOps[tokens[0]]
 			if(len(tokens) == 5):
 				inst.literal = tokens[4]
-			continue
 			
-		if tokens[0] in jumpInsts: # <inst> <opA> <opB> <opC> <destReg> <optional literal>
-			inst.aluOrLiteral = alu
+		elif tokens[0] in jumpInsts: # <inst> <opA> <opB> <opC> <destReg> <optional literal>
+			inst.aluOrKeyboard = alu
 			inst.opAReg = regNums[tokens[1]]
 			inst.opBReg = regNums[tokens[2]]
 			inst.opCReg = regNums[tokens[3]]
@@ -94,17 +91,17 @@ def DoTheThing():
 			inst.aluFunct = aluOps[tokens[0]]
 			if(len(tokens) == 6):
 				inst.literal = tokens[5]
-			continue
-			
-		print("No matching command found: " + line)
+				
+		else:
+			print("No matching command found: " + line)
 			
 		program.addLine(inst.getLine())
-		
+	
 	program.printProgram()
 
 class Inst:
 	def __init__(self):
-		self.aluOrLiteral = 0
+		self.aluOrKeyboard = 0
 		self.destReg = 0
 		self.literal = 0
 		self.opAReg = 0

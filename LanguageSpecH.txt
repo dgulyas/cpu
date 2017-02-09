@@ -1,10 +1,10 @@
 ﻿==Registers==
 Represented by x, y, z, w.
-Valid values: regx where x is 0-15 or Ram or RamAd or Lv or Tty or Pc
+Valid values: regx where x is 0-15 or Ram or RamAd or Lit or Tty or Pc
 reg0-reg11: are normal registers
 reg12/regRamAd: is normal and also outputs to the RAMs address port. 
 reg13/regRam: is the RAMs data ports, both load and store. 
-reg14/regLv/regTty: is the literal value when read from and the tty when written to.
+reg14/regLit/regTty: is the literal value when read from and the tty when written to.
 reg15/regPc: is the program counter. 
 
 ==Booleans==

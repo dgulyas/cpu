@@ -6,7 +6,7 @@ pt $0 $ram					#store the number in ram
 add $ramAdd $lit $ramAdd 1	#increment the ram address
 e $0 $lit $7 0				#test is number was 0
 je $7 $lit $1 $pc 0			#if test returned false, jump to top of loop
-pt $ramAdd $2				#save ram address. That's how many elements are in our "list"
+minus $ramAdd $lit $2 1		#save ram address. It's the num elements in list
 pt $lit $5 0				#set the outer loop index to 0
 add $pc $lit $3 1			#save next instruction as top of outer loop
 pt $lit $6 0				#set the inner loop index to 0

@@ -1,11 +1,11 @@
 ﻿==Registers==
 Represented by x, y, z, w.
-Valid values: regx where x is 0-15 or Ram or RamAd or Lit or Tty or Pc
-reg0-reg11: are normal registers
-reg12/regRamAd: is normal and also outputs to the RAMs address port. 
-reg13/regRam: is the RAMs data ports, both load and store. 
-reg14/regLit/regTty: is the literal value when read from and the tty when written to.
-reg15/regPc: is the program counter. 
+Valid values: $x where x is 0-15 or ram or ramAdd or lit or tty or pc
+$0-$11: are normal registers
+$12/$ramAdd: is normal and also outputs to the RAMs address port. 
+$13/$ram: is the RAMs data ports, both load and store. 
+$14/$lit/$tty: is the literal value when read from, and the tty when written to.
+$15/$pc: is the program counter. 
 
 ==Booleans==
 False: 0
@@ -49,6 +49,7 @@ lt x y z
 
 ==Jump Instructions==
 If the function is true, ALU outputs the new value, else ALU outputs the current Program Counter value + 1
+In order for a jump to actually occur, the 4th argument should be $pc.
 
 jgt w x y z
 * if w > x then y -> z else program counter + 1 -> z
@@ -60,10 +61,16 @@ je w x y z
 jlt w x y z
 * if w < x then y -> z else program counter + 1 -> z
 
+==Writing to TTY/Reading from the keyboard==
+The terminal and keyboard both use ascii values. To convert a single digit number from ascii to decimal, minus 48 from it.
+Eg. To write the number 8 to the terminal add 48 to it first.
+There's no easy way to write multi digit numbers to the terminal or read them from the keyboard currently. This functionality would need software support.
+The tty only looks at the first 7 bits of the number passed to it. The 8th (highest order) bit is discarded.
+
 ==Optional Literal==
 All of these commands can also optionally set the literal value by appending a base 10 8 bit number onto the end of the command.
 The assembler will check if there's an extra token on the end of the line and if so interpret it as a literal.
-Ex. add 0 6 1 87    --> reg0 + 87 -> reg1
+Ex. add $0 $6 $1 87    --> $0 + 87 -> $1
 
 ==Comments==
 Since commands can now have an optional literal value on the end of the line, comments must begin with #.
@@ -71,14 +78,20 @@ Before a line is processed, if a # is present, it will be removed, along with ev
 
 ==Example Commands== (coming soon)
 Loading Ram:
-pt regLv regRamAd 24 #load 24 into the ram's address reg
-pt regLv regRam 10 #store 10 into registry location 24
+pt $lit $ramAdd 24 #load 24 into the ram's address reg
+pt $lit $ram 10    #store 10 into ram location 24
 
 Reading from Ram:
+pt $lit $ramAdd 24 #load 24 into the ram's address reg
+pt $ram $0         #read the value from ram location 24 into register 0
 
 Writing to the screen:
+pt $lit $0 8        #load 8 into register 0
+add $lit $0 $tty 48 #convert the 8 in register 0 into ascii by adding 48 and write it to the terminal
 
 Read single digit from keyboard and convert from acsii to number:
+lk $0               #read the next ascii character from the keyboard into register 0
+minus $0 $lit $0 48 #convert the ascii value in register 0 into a decimal digit by subtracting 48
 
 No-Op (command that does nothing):
-
+pt $0 $0 #puts the value in register 0 into register 0

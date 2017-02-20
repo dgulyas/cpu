@@ -15,8 +15,8 @@ pt $6 $ramAdd				#load current element and next element into registers
 pt $ram $10
 add $lit $6 $ramAdd 1
 pt $ram $11
-jlt $10 $11 $lit $pc 24 	#test to see if we don't need to swap
-je  $10 $11 $lit $pc 24
+jlt $10 $11 $lit $pc 22 	#test to see if we don't need to swap
+je  $10 $11 $lit $pc 22
 pt $10 $ram					#load data back in swapped
 pt $6 $ramAdd
 pt $11 $ram

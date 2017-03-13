@@ -50,7 +50,7 @@ lt x y z
 * if x < y then 1 -> z else 0 -> z
 
 ==Jump Instructions==
-If the function is true, ALU outputs the new value, else ALU outputs the current Program Counter value
+If the function is true, ALU outputs the new value, else ALU outputs the current Program Counter value + 1
 
 jgt w x y z
 * if w > x then y -> z else program counter -> z

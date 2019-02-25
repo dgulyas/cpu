@@ -3,7 +3,7 @@
 This file is intended to be loaded by Logisim-evolution (https://github.com/reds-heig/logisim-evolution).
 <lib desc="#Wiring" name="0">
     <tool name="Splitter">
-      <a name="facing" val="west"/>
+      <a name="facing" val="north"/>
     </tool>
   </lib>
   <lib desc="#Gates" name="1"/>
@@ -324,8 +324,7 @@ end TCL_Generic;&#13;
     <wire from="(210,150)" to="(210,180)"/>
     <wire from="(420,370)" to="(460,370)"/>
     <wire from="(510,380)" to="(550,380)"/>
-    <wire from="(160,660)" to="(190,660)"/>
-    <wire from="(160,620)" to="(190,620)"/>
+    <wire from="(180,640)" to="(210,640)"/>
     <wire from="(280,100)" to="(310,100)"/>
     <wire from="(50,340)" to="(140,340)"/>
     <wire from="(340,490)" to="(360,490)"/>
@@ -363,8 +362,9 @@ end TCL_Generic;&#13;
     <wire from="(510,440)" to="(510,470)"/>
     <wire from="(290,420)" to="(290,450)"/>
     <wire from="(220,410)" to="(220,440)"/>
+    <wire from="(90,680)" to="(120,680)"/>
+    <wire from="(90,640)" to="(120,640)"/>
     <wire from="(40,80)" to="(130,80)"/>
-    <wire from="(250,620)" to="(280,620)"/>
     <wire from="(120,150)" to="(120,190)"/>
     <wire from="(340,380)" to="(360,380)"/>
     <wire from="(440,460)" to="(460,460)"/>
@@ -388,7 +388,7 @@ end TCL_Generic;&#13;
     <wire from="(180,90)" to="(180,150)"/>
     <wire from="(350,450)" to="(420,450)"/>
     <comp lib="8" loc="(162,22)" name="Text">
-      <a name="text" val="We can arrage NAND gates in a way that has memory"/>
+      <a name="text" val="We can arrange NAND gates in a way that has memory"/>
       <a name="font" val="SansSerif plain 12"/>
     </comp>
     <comp lib="8" loc="(362,78)" name="Text">
@@ -490,32 +490,32 @@ end TCL_Generic;&#13;
       <a name="size" val="30"/>
     </comp>
     <comp lib="1" loc="(290,490)" name="NOT Gate"/>
-    <comp lib="8" loc="(213,584)" name="Text">
-      <a name="text" val="Lets put it in a box!!"/>
+    <comp lib="8" loc="(143,538)" name="Text">
+      <a name="text" val="Remembers on rising edge (what's that?)"/>
       <a name="font" val="SansSerif plain 12"/>
     </comp>
-    <comp lib="4" loc="(200,610)" name="D Flip-Flop"/>
-    <comp lib="8" loc="(149,605)" name="Text">
-      <a name="text" val="Data"/>
+    <comp lib="8" loc="(70,723)" name="Text">
+      <a name="text" val="(Little Triangle)"/>
       <a name="font" val="SansSerif plain 12"/>
     </comp>
-    <comp lib="0" loc="(160,660)" name="Pin"/>
-    <comp lib="0" loc="(280,620)" name="Pin">
+    <comp lib="4" loc="(130,630)" name="D Flip-Flop"/>
+    <comp lib="8" loc="(80,706)" name="Text">
+      <a name="text" val="Gatekeeper/Clock"/>
+      <a name="font" val="SansSerif plain 12"/>
+    </comp>
+    <comp lib="0" loc="(90,680)" name="Pin"/>
+    <comp lib="0" loc="(90,640)" name="Pin"/>
+    <comp lib="0" loc="(210,640)" name="Pin">
       <a name="facing" val="west"/>
       <a name="output" val="true"/>
       <a name="labelloc" val="east"/>
     </comp>
-    <comp lib="0" loc="(160,620)" name="Pin"/>
-    <comp lib="8" loc="(150,686)" name="Text">
-      <a name="text" val="Gatekeeper/Clock"/>
+    <comp lib="8" loc="(79,625)" name="Text">
+      <a name="text" val="Data"/>
       <a name="font" val="SansSerif plain 12"/>
     </comp>
-    <comp lib="8" loc="(140,703)" name="Text">
-      <a name="text" val="(Little Triangle)"/>
-      <a name="font" val="SansSerif plain 12"/>
-    </comp>
-    <comp lib="8" loc="(143,538)" name="Text">
-      <a name="text" val="Remembers on rising edge (what's that?)"/>
+    <comp lib="8" loc="(143,604)" name="Text">
+      <a name="text" val="Lets put it in a box!!"/>
       <a name="font" val="SansSerif plain 12"/>
     </comp>
   </circuit>
@@ -789,6 +789,10 @@ end TCL_Generic;&#13;
     </comp>
     <comp lib="8" loc="(56,848)" name="Text">
       <a name="text" val="Questions:"/>
+      <a name="font" val="SansSerif plain 12"/>
+    </comp>
+    <comp lib="8" loc="(388,213)" name="Text">
+      <a name="text" val="Output"/>
       <a name="font" val="SansSerif plain 12"/>
     </comp>
   </circuit>
